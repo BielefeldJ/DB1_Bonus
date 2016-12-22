@@ -68,3 +68,5 @@ $RECYCLE.BIN/
 /DB1_Bonus/nbproject/private/
 *.properties
 manifest.mf
+src/de/fhdo/db/mysqldata/bielefeld/DataBielefeldDB.java
+src/de/fhdo/db/mysqldata/ruether/DataRuehterDB.java
