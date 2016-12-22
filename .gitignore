@@ -65,3 +65,6 @@ $RECYCLE.BIN/
 #Onenote shit
 .one
 .onetoc2
+/DB1_Bonus/nbproject/private/
+*.properties
+manifest.mf
