@@ -13,10 +13,10 @@ public class Query
     public static String auslastungLieferer(Connection con, int plz)
     {
         // Select abfrage
-        String sql = "SELECT lb.Lieferbezierk_ID, lb.plz, COUNT(l.Lieferer_ID) AS AnzahlLieferer, COUNT(lfb.Lieferbestaetigung_ID) AS AnzahlLieferungen, AVG(bp.anzahl) AS DurchschnittBestellsumme "
-                + "FROM `tbl_lieferbezierk` lb, `tbl_lieferer` l, `tbl_liefererbestaetigung` lfb, `tbl_bestellung` b, `tbl_bestellposition` bp "
+        String sql = "SELECT lb.Lieferbezirk_ID, lb.plz, COUNT(l.Lieferer_ID) AS AnzahlLieferer, COUNT(lfb.Lieferbestaetigung_ID) AS AnzahlLieferungen, AVG(bp.anzahl) AS DurchschnittBestellsumme "
+                + "FROM `tbl_lieferbezirk` lb, `tbl_lieferer` l, `tbl_liefererbestaetigung` lfb, `tbl_bestellung` b, `tbl_bestellposition` bp "
                 + "WHERE lb.plz = l.plz AND l.plz = ? AND lfb.`Lieferer_NR` = l.Lieferer_ID AND lfb.`Bestellung_NR` = b.`Bestellung_ID` AND b.bestellstatus = 'abgeschlossen' and bp.`Bestellung_NR` = b.Bestellung_ID "
-                + "GROUP BY lb.`Lieferbezierk_ID` ";
+                + "GROUP BY lb.`Lieferbezirk_ID` ";
         
         String result = "";
         
@@ -32,7 +32,7 @@ public class Query
             {
                 while (rs.next()) // Liste aller Ergebnisse
                 {
-                    result += rs.getString("Lieferbezierk_ID") + " " + rs.getString("plz") + " " + rs.getString("AnzahlLieferer") + " " + rs.getString("AnzahlLieferungen") + " " + rs.getString("DurchschnittBestellsumme") + "\n";
+                    result += rs.getString("Lieferbezirk_ID") + " " + rs.getString("plz") + " " + rs.getString("AnzahlLieferer") + " " + rs.getString("AnzahlLieferungen") + " " + rs.getString("DurchschnittBestellsumme") + "\n";
                 }
             }
         }
@@ -46,7 +46,7 @@ public class Query
 
     public static boolean checkPLZ(Connection con, int plz)
     {
-        try (PreparedStatement plzstm = con.prepareStatement("Select lb.plz FROM tbl_lieferbezierk lb");)
+        try (PreparedStatement plzstm = con.prepareStatement("Select lb.plz FROM tbl_lieferbezirk lb");)
         {
             ResultSet rs = plzstm.executeQuery();
             while (rs.next())

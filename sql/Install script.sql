@@ -176,13 +176,13 @@ CREATE TABLE `tbl_bestellposition` (
 
 
 --
--- Table structure for table `tbl_lieferbezierk`
+-- Table structure for table `tbl_lieferbezirk`
 --
-DROP TABLE IF EXISTS `tbl_lieferbezierk`;
-CREATE TABLE `tbl_lieferbezierk` (
-  `Lieferbezierk_ID` int(10) unsigned NOT NULL ,
+DROP TABLE IF EXISTS `tbl_lieferbezirk`;
+CREATE TABLE `tbl_lieferbezirk` (
+  `Lieferbezirk_ID` int(10) unsigned NOT NULL ,
   `plz` char(5) NOT NULL,
-  PRIMARY KEY (`Lieferbezierk_ID`)
+  PRIMARY KEY (`Lieferbezirk_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `tbl_lieferer_lieferbezirk` (
 	`Lieferzeit` varchar(45) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
 	`Lieferpreis` double unsigned NOT NULL,
 	PRIMARY KEY (`Lieferbezirk_NR`,`Lieferer_NR`),
-	FOREIGN KEY (`Lieferbezirk_NR`) REFERENCES tbl_lieferbezierk(Lieferbezierk_ID),
+	FOREIGN KEY (`Lieferbezirk_NR`) REFERENCES tbl_lieferbezirk(Lieferbezirk_ID),
 	FOREIGN KEY (`Lieferer_NR`) REFERENCES tbl_lieferer(Lieferer_ID)	
 ) ENGINE=InnoDB CHARSET=latin1;
 
@@ -366,9 +366,9 @@ INSERT INTO `tbl_bestellung` VALUES (50,6,3, '2016-07-21','abgeschlossen','2016-
 INSERT INTO `tbl_bestellposition` VALUES (117,60,8,20,0),(116,59,3,10,0), (115,58,2,25,0), (114,57,8,9,0),(113,56,7,4,0),(112,55,5,18,0), (111,54,8,4,0), (110,53,1,4,0), (109,52,3,15,0), (108,51,4,4,0), (107,50,8,8,0), (106,49,8,5,0),(105,48,1,10,0), (104,47,8,7,0), (103,46,2,20,0), (102,45,6,10,0), (101,44,5,12,0), (100,43,8,6,0), (118, 61, 4, 4, 0);
 
 --
--- Dumping data for table `tbl_lieferbezierk`
+-- Dumping data for table `tbl_lieferbezirk`
 --
-INSERT INTO `tbl_lieferbezierk` VALUES (1,'39850'),(2,'39846'),(3,'39001'), (4,'39000');
+INSERT INTO `tbl_lieferbezirk` VALUES (1,'39850'),(2,'39846'),(3,'39001'), (4,'39000');
 -- Table structure for table `tbl_lieferer`
 --
 
