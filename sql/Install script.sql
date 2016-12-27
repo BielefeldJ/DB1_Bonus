@@ -1,4 +1,3 @@
-﻿﻿--
 CREATE DATABASE `venenumBonus`;
 USE `venenumBonus`;
 -- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
