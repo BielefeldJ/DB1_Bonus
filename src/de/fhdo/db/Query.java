@@ -1,16 +1,25 @@
 package de.fhdo.db;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Query
 {
+    private final Connection con;
+    
+    
+    public Query(Connection con)
+    {
+        this.con = con ;
+    }
 
-    public static String auslastungLieferer(Connection con, int plz)
+    public String auslastungLieferer(int plz)
     {
         // Select abfrage
         String sql = "SELECT lb.Lieferbezirk_ID, lb.plz, COUNT(l.Lieferer_ID) AS AnzahlLieferer ,"
@@ -46,7 +55,9 @@ public class Query
         return result;
     }
 
-    public static boolean checkPLZ(Connection con, int plz)
+    
+    
+    public boolean checkPLZ(int plz)
     {
         try (PreparedStatement plzstm = con.prepareStatement("Select lb.plz FROM tbl_lieferbezirk lb");)
         {
@@ -64,5 +75,23 @@ public class Query
             Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public String setNewArea(int LiefererID, String oldArea, String newArea)
+    {
+        try( CallableStatement cst = con.prepareCall("{call LieferbezirkWechsel(?,?,?,?)}");)
+        {
+           cst.setString(1,String.valueOf(LiefererID));
+           cst.setString(2, oldArea);
+           cst.setString(3, newArea);
+           cst.registerOutParameter(4, Types.VARCHAR);
+           cst.execute();
+           return cst.getString(4);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Fehler beim ändern des Gebietes!";
     }
 }

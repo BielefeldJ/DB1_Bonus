@@ -28,9 +28,11 @@ public class Main
         String user=DataRuehterDB.USER, passwd = DataRuehterDB.PASSWORD;
          */
         Scanner sc = new Scanner(System.in);
+        Query qry;
 
         try (Connection con = DriverManager.getConnection(url, user, passwd);)
         {
+            qry = new Query(con);
             boolean run = true;
             int item;
 
@@ -39,7 +41,7 @@ public class Main
                 System.out.println("========================================");
                 System.out.println("Wählen Sie aus, was Sie machen möchten: ");
                 System.out.println("(1): Aufgabe 1a");
-                //System.out.println("(2): Aufgabe 2a");
+                System.out.println("(2): Aufgabe 2a");
                 //System.out.println("(3): Aufgabe 2b");
                 System.out.println("(4): Beenden");
                 System.out.println("========================================");
@@ -49,14 +51,23 @@ public class Main
                     case 1:
                         System.out.println("Geben Sie eine Postleitzahl ein: ");
                         int plz = sc.nextInt();
-                        if (Query.checkPLZ(con, plz))
+                        if (qry.checkPLZ(plz))
                         {
-                            System.out.println(Query.auslastungLieferer(con, plz));
+                            System.out.println(qry.auslastungLieferer(plz));
                         }
                         else
                         {
                             System.out.println("PLZ nicht im System gefunden.");
                         }
+                        break;
+                    case 2:
+                        System.out.println("Geben Sie die Lieferer ID ein: ");
+                        int LiefererID = sc.nextInt();
+                        System.out.println("Geben Sie den aktuellen Bezirk ein: ");
+                        String ondArea = sc.next();
+                        System.out.println("Geben Sie den neuen Bezirk ein: ");
+                        String newArea = sc.next();
+                        System.out.println(qry.setNewArea(LiefererID, ondArea, newArea));
                         break;
                     case 4:
                         run = false;
