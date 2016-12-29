@@ -69,6 +69,8 @@ public class Main
                         String newArea = sc.next();
                         System.out.println(qry.setNewArea(LiefererID, ondArea, newArea));
                         break;
+                    case 3:
+                        break;
                     case 4:
                         run = false;
                         break;
