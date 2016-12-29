@@ -79,7 +79,7 @@ public class Query
     
     public String setNewArea(int LiefererID, String oldArea, String newArea)
     {
-        try( CallableStatement cst = con.prepareCall("{call LieferbezirkWechsel(?,?,?,?)}");)
+        try( CallableStatement cst = con.prepareCall("{call setNewArea(?,?,?,?)}");)
         {
            cst.setString(1,String.valueOf(LiefererID));
            cst.setString(2, oldArea);
@@ -90,7 +90,7 @@ public class Query
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return "Fehler beim ändern des Gebietes!";
     }
