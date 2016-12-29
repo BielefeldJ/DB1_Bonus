@@ -35,6 +35,7 @@ public class Main
             qry = new Query(con);
             boolean run = true;
             int item;
+            int LiefererID;
 
             do
             {
@@ -42,7 +43,7 @@ public class Main
                 System.out.println("Wählen Sie aus, was Sie machen möchten: ");
                 System.out.println("(1): Aufgabe 1a");
                 System.out.println("(2): Aufgabe 2a");
-                //System.out.println("(3): Aufgabe 2b");
+                System.out.println("(3): Aufgabe 2b");
                 System.out.println("(4): Beenden");
                 System.out.println("========================================");
                 item = sc.nextInt();
@@ -62,14 +63,26 @@ public class Main
                         break;
                     case 2:
                         System.out.println("Geben Sie die Lieferer ID ein: ");
-                        int LiefererID = sc.nextInt();
+                        LiefererID = sc.nextInt();
                         System.out.println("Geben Sie den aktuellen Bezirk ein: ");
-                        String ondArea = sc.next();
-                        System.out.println("Geben Sie den neuen Bezirk ein: ");
-                        String newArea = sc.next();
-                        System.out.println(qry.setNewArea(LiefererID, ondArea, newArea));
+                        String oldArea = sc.next();
+                        if (qry.checkPLZ(Integer.parseInt(oldArea)))
+                        {
+                            System.out.println("Geben Sie den neuen Bezirk ein: ");
+                            String newArea = sc.next();
+                            System.out.println(qry.setNewArea(LiefererID, oldArea, newArea));
+                        }
+                        else
+                        {
+                            System.out.println("Der Lieferant hat die angegebene Postleitzahl nicht!");
+                        }
                         break;
                     case 3:
+                        System.out.println("Geben Sie die Lieferer ID ein: ");
+                        LiefererID = sc.nextInt();
+                        System.out.println("Geben Sie einen Vornamen ein: ");
+                        String Vorname = sc.next();
+                        System.out.println(qry.insertNewDelivery(LiefererID, Vorname));
                         break;
                     case 4:
                         run = false;

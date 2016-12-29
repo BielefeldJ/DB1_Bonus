@@ -6,8 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Query
 {
@@ -49,7 +48,7 @@ public class Query
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+           //ex.printStackTrace();
         }
 
         return result;
@@ -72,7 +71,7 @@ public class Query
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+           //ex.printStackTrace();
         }
         return false;
     }
@@ -90,8 +89,25 @@ public class Query
         }
         catch (SQLException ex)
         {
-            ex.printStackTrace();
+            //ex.printStackTrace();
         }
         return "Fehler beim ändern des Gebietes!";
+    }
+    
+    public String insertNewDelivery(int LiefererID, String Vorname)
+    {
+        try(CallableStatement cst = con.prepareCall("{call insertLieferer(?,'Ultrageheimespw','Herr',?,'04.04.1996','Dingensstrasse','Dingenshausen','38999','01578554557','coolertyp@dingens.com','Cooler Tpy','001122554','Dingenskasse','500')}"))
+        {
+            cst.setString(1, String.valueOf(LiefererID));
+            cst.setString(2, Vorname);
+            cst.execute();
+            return "Erfolgreich eingefügt";
+        }
+        catch (SQLException ex)
+        {
+            //ex.printStackTrace();
+            return "Fehler beim einfügen";
+        }
+        
     }
 }
