@@ -1,6 +1,6 @@
-DELIMITER &&
+DROP TRIGGER IF EXISTS GetraenkemarktzuweisenInsert;
 
-DROP TRIGGER IF EXISTS GetraenkemarktzuweisenInsert &&
+DELIMITER &&
 CREATE TRIGGER GetraenkemarktzuweisenInsert
 AFTER INSERT ON tbl_lieferer
 FOR EACH ROW

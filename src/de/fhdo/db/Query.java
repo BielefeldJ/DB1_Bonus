@@ -32,7 +32,7 @@ public class Query
                         + "WHERE lb.plz = l.plz and l.plz = ? "
                         + "GROUP BY lb.Lieferbezirk_ID";
 
-        String result = "Lieferbezirk ohne Lieferer";
+        String result = "";
 
         try (PreparedStatement stm = con.prepareStatement(sql);) // Erstellen der SQL Abfrage
         {
@@ -41,8 +41,13 @@ public class Query
 
             while (rs.next()) // Liste aller Ergebnisse
             {
-                System.out.println("test");
+                //System.out.println("test");
                 result += rs.getString("Lieferbezirk_ID") + " " + rs.getString("plz") + " " + rs.getString("AnzahlLieferer") + " " + rs.getString("AnzahlBestellungen") + " " + rs.getString("DurchschnittBestellsumme") + "\n";
+            }
+            
+            if(result.equals(""))
+            {
+                result = "Lieferbezirk ohne Lieferer"; 
             }
 
         }
