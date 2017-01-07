@@ -42,7 +42,7 @@ public class Query
             while (rs.next()) // Liste aller Ergebnisse
             {
                 //System.out.println("test");
-                result += rs.getString("Lieferbezirk_ID") + " " + rs.getString("plz") + " " + rs.getString("AnzahlLieferer") + " " + rs.getString("AnzahlBestellungen") + " " + rs.getString("DurchschnittBestellsumme") + "\n";
+                result += rs.getString("Lieferbezirk_ID") + " " + rs.getString("plz") + " " + rs.getString("AnzahlLieferer") + " " + rs.getString("AnzahlBestellungen") + " " + rs.getString("DurchschnittBestellsumme") + "\n"; //Jeden gefunden Datensatz in result schreiben
             }
             
             if(result.equals(""))
@@ -63,12 +63,12 @@ public class Query
     
     public boolean checkPLZ(int plz)
     {
-        try (PreparedStatement plzstm = con.prepareStatement("Select lb.plz FROM tbl_lieferbezirk lb");)
+        try (PreparedStatement plzstm = con.prepareStatement("Select lb.plz FROM tbl_lieferbezirk lb");) //Erstellen der SQL Abfrage
         {
-            ResultSet rs = plzstm.executeQuery();
-            while (rs.next())
+            ResultSet rs = plzstm.executeQuery(); //Select ausführen
+            while (rs.next()) //Liste aller PLZ
             {
-                if (rs.getString("plz").equals(String.valueOf(plz)))
+                if (rs.getString("plz").equals(String.valueOf(plz)))  //Die übergebene PLZ mit der PLZ aus der Datenbank vergleichen
                 {
                     return true;
                 }
@@ -83,14 +83,14 @@ public class Query
     
     public String setNewArea(int LiefererID, String oldArea, String newArea)
     {
-        try( CallableStatement cst = con.prepareCall("{call setNewArea(?,?,?,?)}");)
+        try( CallableStatement cst = con.prepareCall("{call setNewArea(?,?,?,?)}");) //Vorbereiten der Procedure setNewArea
         {
-           cst.setString(1,String.valueOf(LiefererID));
-           cst.setString(2, oldArea);
-           cst.setString(3, newArea);
-           cst.registerOutParameter(4, Types.VARCHAR);
-           cst.execute();
-           return cst.getString(4);
+           cst.setString(1,String.valueOf(LiefererID)); //LieferID übergeben
+           cst.setString(2, oldArea);   //oldArea übergeben
+           cst.setString(3, newArea);   //newArea übergeben
+           cst.registerOutParameter(4, Types.VARCHAR);  //rückgabe Parameter setzen
+           cst.execute();   //Procedure ausführen
+           return cst.getString(4); //Rückgabe der Procedure zurück geben
         }
         catch (SQLException ex)
         {
@@ -101,11 +101,11 @@ public class Query
     
     public String insertNewDelivery(int LiefererID, String Vorname)
     {
-        try(CallableStatement cst = con.prepareCall("{call insertLieferer(?,'Ultrageheimespw','Herr',?,'04.04.1996','Dingensstrasse','Dingenshausen','38999','01578554557','coolertyp@dingens.com','Cooler Tpy','001122554','Dingenskasse','500')}"))
+        try(CallableStatement cst = con.prepareCall("{call insertLieferer(?,'Ultrageheimespw','Herr',?,'04.04.1996','Dingensstrasse','Dingenshausen','38999','01578554557','coolertyp@dingens.com','Cooler Tpy','001122554','Dingenskasse','500')}")) //Procedure insertNewDelivery vorbereiten
         {
-            cst.setString(1, String.valueOf(LiefererID));
-            cst.setString(2, Vorname);
-            cst.execute();
+            cst.setString(1, String.valueOf(LiefererID)); // LiefererID übergeben
+            cst.setString(2, Vorname);  //Vorname übergeben
+            cst.execute();  //Procedure ausführen
             return "Erfolgreich eingefügt";
         }
         catch (SQLException ex)
