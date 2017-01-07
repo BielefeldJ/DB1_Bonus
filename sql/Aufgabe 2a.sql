@@ -8,15 +8,15 @@ CREATE PROCEDURE setNewArea(
 main:BEGIN
 	DECLARE oldArea char(5);
 	DECLARE checkMarkt char(5);
-	SELECT l.plz INTO oldArea FROM tbl_lieferer l WHERE liefererID = l.Lieferer_ID;
-	SELECT g.plz into checkMarkt from tbl_getraenkemarkt g where g.plz = toArea;
+	SELECT l.plz INTO oldArea FROM tbl_lieferer l WHERE liefererID = l.Lieferer_ID; /* plz der LieferID ermitteln */
+	SELECT g.plz into checkMarkt from tbl_getraenkemarkt g where g.plz = toArea;	/*Prüfen ob der Markt vorhanden ist */
 	IF checkMarkt IS NULL THEN
 		SET msg= 'Kein Getränkemarkt gefunden!';
         LEAVE main;
 	ELSE IF fromArea = oldArea THEN
 			UPDATE tbl_lieferer
 			SET tbl_lieferer.plz = toArea
-			WHERE liefererID = tbl_lieferer.Lieferer_ID;
+			WHERE liefererID = tbl_lieferer.Lieferer_ID; /* Wenn die plz stimmt den datensatz Updaten*/
 			SET msg = 'Änderung der PLZ erfolgreich';
 		ELSE
 			SET msg = 'Änderungen konnten nicht umgesetzt werden';
