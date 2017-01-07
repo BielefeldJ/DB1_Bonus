@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+﻿
 package de.fhdo.db;
 
 import de.fhdo.db.mysqldata.bielefeld.DataBielefeldDB;
@@ -13,7 +9,8 @@ import java.util.Scanner;
 
 /**
  *
- * @author Admin
+ * @author Jens Bielefeld 7097263
+ * @author Leo Rüther 7097307
  */
 public class Main
 {
