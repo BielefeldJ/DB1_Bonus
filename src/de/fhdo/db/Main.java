@@ -30,9 +30,9 @@ public class Main
         Scanner sc = new Scanner(System.in);
         Query qry;
 
-        try (Connection con = DriverManager.getConnection(url, user, passwd);)
+        try (Connection con = DriverManager.getConnection(url, user, passwd);) //Verbindung zur Datenbank aufbauen
         {
-            qry = new Query(con);
+            qry = new Query(con);   //Neues query anlegen
             boolean run = true;
             int item;
             int LiefererID;
@@ -52,9 +52,9 @@ public class Main
                     case 1:
                         System.out.println("Geben Sie eine Postleitzahl ein: ");
                         int plz = sc.nextInt();
-                        if (qry.checkPLZ(plz))
+                        if (qry.checkPLZ(plz))  //PLZ überprüfen
                         {
-                            System.out.println(qry.auslastungLieferer(plz));
+                            System.out.println(qry.auslastungLieferer(plz));    //Auslastung der Lieferer anzeigen
                         }
                         else
                         {
@@ -66,11 +66,11 @@ public class Main
                         LiefererID = sc.nextInt();
                         System.out.println("Geben Sie den aktuellen Bezirk ein: ");
                         String oldArea = sc.next();
-                        if (qry.checkPLZ(Integer.parseInt(oldArea)))
+                        if (qry.checkPLZ(Integer.parseInt(oldArea))) //PLZ überprüfen
                         {
                             System.out.println("Geben Sie den neuen Bezirk ein: ");
                             String newArea = sc.next();
-                            System.out.println(qry.setNewArea(LiefererID, oldArea, newArea));
+                            System.out.println(qry.setNewArea(LiefererID, oldArea, newArea));   //Bezirk ändern
                         }
                         else
                         {
